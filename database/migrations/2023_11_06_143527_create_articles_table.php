@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name'); // タイトル
             $table->string('vegetable'); // 野菜名
-            $table->string('color'); // 色
+            $table->string('color'); // 色合い度
             $table->string('nutrient'); // 栄養素
             $table->string('recipe'); // 作り方
             $table->string('comment'); // コメント

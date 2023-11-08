@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
+use App\Models\Article;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -25,9 +29,38 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        //
+        $article = new Article($request->all());
+        $article->user_id = $request->user()->id;
+        
+        $file = $request->file('image');
+        $article->image = self::createFileName($file);
+
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            // 登録
+            $article->save();
+
+            // 画像アップロード
+            if (!Storage::putFileAs('images/articles', $file, $article->image)) {
+                // 例外を投げてロールバックさせる
+                throw new \Exception('画像ファイルの保存に失敗しました。');
+            }
+
+            // トランザクション終了(成功)
+            DB::commit();
+        }catch (\Exception $e) {
+            // トランザクション終了(失敗)
+            DB::rollBack();
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
+        return redirect()
+            ->route('articles.show', $article)
+            ->with('notice', '記事を登録しました');
+
     }
 
     /**
@@ -35,7 +68,9 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $article = Article::find($id);
+
+        return view('articles.show', compact('article'));
     }
 
     /**
@@ -43,15 +78,62 @@ class ArticleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $article = Article::find($id);
+
+        return view('articles.edit', compact('article'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateArticleRequest $request, string $id)
     {
-        //
+        $article = Article::find($id);
+
+        if ($request->user()->cannot('update', $article)) {
+            return redirect()->route('articles.show', $article)
+                ->withErrors('自分の記事以外は更新できません');
+        }
+
+        $file = $request->file('image');
+        if ($file) {
+            $delete_file_path = 'images/articles/' . $article->image;
+            $article->image = self::createFileName($file);
+        }
+        $article->fill($request->all());
+
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            // 更新
+            $article->save();
+
+            if ($file) {
+                // 画像アップロード
+                if (!Storage::putFileAs('images/articles', $file, $article->image)) {
+                    // 例外を投げてロールバックさせる
+                    throw new \Exception('画像ファイルの保存に失敗しました。');
+                }
+
+                // 画像削除
+                if (!Storage::delete($delete_file_path)) {
+                    //アップロードした画像を削除する
+                    Storage::delete('images/articles/' . $article->image);
+                    //例外を投げてロールバックさせる
+                    throw new \Exception('画像ファイルの削除に失敗しました。');
+                }
+            }
+
+            // トランザクション終了(成功)
+            DB::commit();
+        } catch (\Exception $e) {
+            // トランザクション終了(失敗)
+            DB::rollback();
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
+        return redirect()->route('articles.show', $article)
+            ->with('notice', '記事を更新しました');
     }
 
     /**
@@ -60,5 +142,10 @@ class ArticleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private static function createFileName($file)
+    {
+        return date('YmdHis') . '_' . $file->getClientOriginalName();
     }
 }

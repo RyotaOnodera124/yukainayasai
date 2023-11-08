@@ -39,7 +39,7 @@
 
                         <!-- Authentication -->
                         @auth
-                            <x-dropdown-link :href="route('posts.create')">
+                            <x-dropdown-link :href="route('articles.create')">
                                 {{ __('Create Post') }}
                             </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
@@ -100,7 +100,7 @@
                     </x-responsive-nav-link>
 
                     <!-- Authentication -->
-                    <x-responsive-nav-link :href="route('posts.create')">
+                    <x-responsive-nav-link :href="route('articles.create')">
                         {{ __('Create Post') }}
                     </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
