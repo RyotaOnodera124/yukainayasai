@@ -24,8 +24,18 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function getImageUrlAttribute()
     {
-        return Storage::url('images/articles/' . $this->image);
+        return Storage::url($this->image_path);
+    }
+
+    public function getImagePathAttribute()
+    {
+        return 'images/articles/' . $this->image;
     }
 }

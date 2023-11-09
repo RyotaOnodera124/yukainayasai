@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class); // userモデルから見た時に、1対nの関係(投稿が複数の時は)ユーザーに紐づく投稿をまとめて持ってくる
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

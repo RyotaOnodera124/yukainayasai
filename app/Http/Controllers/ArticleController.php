@@ -35,7 +35,7 @@ class ArticleController extends Controller
     {
         $article = new Article($request->all());
         $article->user_id = $request->user()->id;
-        
+
         $file = $request->file('image');
         $article->image = self::createFileName($file);
 
@@ -53,7 +53,7 @@ class ArticleController extends Controller
 
             // トランザクション終了(成功)
             DB::commit();
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             // トランザクション終了(失敗)
             DB::rollBack();
             return back()->withInput()->withErrors($e->getMessage());
@@ -62,7 +62,6 @@ class ArticleController extends Controller
         return redirect()
             ->route('articles.show', $article)
             ->with('notice', '記事を登録しました');
-
     }
 
     /**
@@ -99,7 +98,7 @@ class ArticleController extends Controller
 
         $file = $request->file('image');
         if ($file) {
-            $delete_file_path = 'images/articles/' . $article->image;
+            $delete_file_path = $article->image_path;
             $article->image = self::createFileName($file);
         }
         $article->fill($request->all());
@@ -120,7 +119,7 @@ class ArticleController extends Controller
                 // 画像削除
                 if (!Storage::delete($delete_file_path)) {
                     //アップロードした画像を削除する
-                    Storage::delete('images/articles/' . $article->image);
+                    Storage::delete($article->image_path);
                     //例外を投げてロールバックさせる
                     throw new \Exception('画像ファイルの削除に失敗しました。');
                 }
@@ -143,7 +142,29 @@ class ArticleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $article = Article::find($id);
+
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            $article->delete();
+
+            // 画像削除
+            if (!Storage::delete($article->image_path)) {
+                // 例外を投げてロールバックさせる
+                throw new \Exception('画像ファイルの削除に失敗しました。');
+            }
+
+            // トランザクション終了(成功)
+            DB::commit();
+        } catch (\Exception $e) {
+            // トランザクション終了(失敗)
+            DB::rollback();
+            return back()->withErrors($e->getMessage());
+        }
+
+        return redirect()->route('articles.index')
+            ->with('notice', '記事を削除しました');
     }
 
     private static function createFileName($file)
