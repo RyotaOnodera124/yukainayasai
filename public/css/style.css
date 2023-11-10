@@ -4,8 +4,8 @@
 VARIABLES
 ================================================ */
 :root {
-    --light-green: #d5edeb;
-    --green: #63dbd0;
+    --light-green: #57ef5c;
+    --green: #099a02;
     --brown: #403632;
     --light-grey: #eee;
     --white: #fff;
@@ -34,11 +34,6 @@ img {
     font-family: var(--oswald-font);
     font-size: min(10vw, 4rem);
     margin-bottom: 2rem;
-}
-.subtitle {
-    font-family: var(--oswald-font); /* 任意のフォントに変更 */
-    font-size: min(5vw, 2rem); /* 任意のサイズに変更 */
-    margin-top: 1rem; /* タイトルとサブタイトルの間隔を調整 */
 }
 .btn {
     color: var(--white);
@@ -233,7 +228,6 @@ GALLERY
 SHOP INFO
 ================================================ */
 .shop {
-    background: url('https://assets.codepen.io/85188/bg-shop.jpg') no-repeat center top / cover;
     margin-top: 16rem;
     position: relative;
     height: 40rem;
