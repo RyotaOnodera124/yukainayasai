@@ -69,9 +69,10 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        $article = Article::find($id);
+        $article = Article::with(['user'])->find($id);
+        $comments = $article->comments()->latest()->get()->load(['user']);
 
-        return view('articles.show', compact('article'));
+        return view('articles.show', compact('article', 'comments'));
     }
 
     /**

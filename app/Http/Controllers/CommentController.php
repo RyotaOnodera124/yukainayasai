@@ -56,17 +56,32 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Comment $comment)
+    public function edit(Article $article, Comment $comment)
     {
-        //
+        return view('comments.edit', compact('article', 'comment'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(UpdateCommentRequest $request, Article $article, Comment $comment)
     {
-        //
+        if ($request->user()->cannot('update', $comment)) {
+            return redirect()->route('articles.show', $article)
+                ->withErrors('自分のコメント以外は更新できません');
+        }
+
+        $comment->fill($request->all());
+
+        try {
+            // 更新
+            $comment->save();
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
+        return redirect()->route('articles.show', $article)
+            ->with('notice', 'コメントを更新しました');
     }
 
     /**

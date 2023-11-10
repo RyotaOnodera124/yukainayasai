@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ArticleController::class, 'index'])
-    ->name('root');
+Route::get('/', function () {
+    return view('top');
+})->name('root');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
