@@ -37,7 +37,7 @@
             </svg>
         </button>
         <ul class="menu-list">
-            <li><a href="#">野菜検索</a></li>
+            <li><a href="{{ route('vegetables.index') }}">野菜検索</a></li>
             <li><a href="{{ route('articles.index') }}">レシピ投稿</a></li>
             <li><a href="#">Instagram</a></li>
             <li><a href="#">オンラインショップ</a></li>
