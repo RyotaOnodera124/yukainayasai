@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('top');
 })->name('root');
+
+Route::get('vegetable', [SearchController::class, 'index'])->name('root');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
