@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('top');
 })->name('root');
 
-Route::get('vegetable', [SearchController::class, 'index'])->name('root');
+Route::get('/vegetables', [SearchController::class, 'index'])->name('vegetables.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
