@@ -68,7 +68,7 @@ class VegetableSeeder extends Seeder
             ],
             [
                 'name' => 'かぶ',
-                'condition' => '食欲不振',
+                'condition' => 'むくみが気になる',
                 'farmer' => '小野寺農園',
                 'image' => 'kabu.jpg',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -124,7 +124,7 @@ class VegetableSeeder extends Seeder
             ],
             [
                 'name' => 'カリフラワー',
-                'condition' => '風邪ひいたぁ',
+                'condition' => 'むくみが気になる',
                 'farmer' => '櫻木農園',
                 'image' => 'karifurawa.jpg',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -196,7 +196,7 @@ class VegetableSeeder extends Seeder
             ],
             [
                 'name' => 'ゴーヤ',
-                'condition' => '糖尿病予防',
+                'condition' => '美容に',
                 'farmer' => '待寺農園',
                 'image' => 'go-ya.jpg',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -204,7 +204,7 @@ class VegetableSeeder extends Seeder
             ],
             [
                 'name' => 'ごぼう',
-                'condition' => '糖尿病予防',
+                'condition' => '胃腸の調子',
                 'farmer' => '待寺農園',
                 'image' => 'gobou.jpg',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -212,7 +212,7 @@ class VegetableSeeder extends Seeder
             ],
             [
                 'name' => 'ほうれん草',
-                'condition' => '貧血気味',
+                'condition' => '美容に',
                 'farmer' => '待寺農園',
                 'image' => 'hourensou.jpg',
                 'created_at' => date('Y-m-d H:i:s'),
