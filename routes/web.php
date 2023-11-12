@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 Route::get('/vegetables', [SearchController::class, 'index'])->name('vegetables.index');
 
+Route::get('/vegetables/search', [SearchController::class, 'search'])->name('vegetables.search');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

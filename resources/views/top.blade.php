@@ -67,7 +67,7 @@
                 <img src="images/farmer.jpg" alt="">
             </div>
             <div class="gallery-content wrapper">
-                <h2 class="title">出荷野菜一覧</h2>
+                <h2 class="title">出荷野菜</h2>
                 <ul class="gallery-thumbnails">
                     <li><img src="images/vegetable2.jpg" alt=""></li>
                     <li><img src="images/vegetable3.jpg" alt=""></li>

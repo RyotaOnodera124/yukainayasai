@@ -50,22 +50,22 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <!-- 野菜検索バー -->
-                        <form action="{{ route('vegetables.index') }}" method="GET">
+                        <form action="{{ route('vegetables.search') }}" method="GET">
                             <div class="mb-4">
                                 <label for="name" class="block text-gray-700 text-sm font-bold mb-2">野菜の名前</label>
                                 <select name="name" id="name"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     <option value="">全ての野菜</option>
-                                    <option value="かぼちゃ" {{ $name == 'かぼちゃ' ? 'selected' : '' }}>かぼちゃ</option>
-                                    <option value="小松菜" {{ $name == '小松菜' ? 'selected' : '' }}>小松菜</option>
-                                    <option value="大根" {{ $name == '大根' ? 'selected' : '' }}>大根</option>
-                                    <option value="にんにく" {{ $name == 'にんにく' ? 'selected' : '' }}>にんにく</option>
-                                    <option value="トマト" {{ $name == 'トマト' ? 'selected' : '' }}>トマト</option>
-                                    <option value="さつまいも" {{ $name == 'さつまいも' ? 'selected' : '' }}>さつまいも</option>
-                                    <option value="きのこ" {{ $name == 'きのこ' ? 'selected' : '' }}>きのこ</option>
-                                    <option value="たけのこ" {{ $name == 'たけのこ' ? 'selected' : '' }}>たけのこ</option>
-                                    <option value="キャベツ" {{ $name == 'キャベツ' ? 'selected' : '' }}>キャベツ</option>
-                                    <option value="にんじん" {{ $name == 'にんじん' ? 'selected' : '' }}>にんじん</option>
+                                    <option value="かぼちゃ">かぼちゃ</option>
+                                    <option value="2">小松菜</option>
+                                    <option value="3">大根</option>
+                                    <option value="4">にんにく</option>
+                                    <option value="5">トマト</option>
+                                    <option value="6">さつまいも</option>
+                                    <option value="7">きのこ</option>
+                                    <option value="8">たけのこ</option>
+                                    <option value="9">キャベツ</option>
+                                    <option value="10">にんじん</option>
                                 </select>
                             </div>
                             <div class="mb-4">
@@ -73,16 +73,16 @@
                                 <select name="condition" id="condition"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     <option value="">すべての体調</option>
-                                    <option value="風邪ひいたぁ" {{ $condition == '風邪ひいたぁ' ? 'selected' : '' }}>風邪ひいたぁ</option>
-                                    <option value="美容に" {{ $condition == '美容に' ? 'selected' : '' }}>美容に</option>
-                                    <option value="最近イライラ" {{ $condition == '最近イライラ' ? 'selected' : '' }}>最近イライラ</option>
-                                    <option value="胃腸の調子" {{ $condition == '胃腸の調子' ? 'selected' : '' }}>胃腸の調子</option>
-                                    <option value="むくみが気になる" {{ $condition == 'むくみが気になる' ? 'selected' : '' }}>むくみが気になる</option>
-                                    <option value="疲れ気味" {{ $condition == '疲れ気味' ? 'selected' : '' }}>疲れ気味</option>
-                                    <option value="辛い肩こり" {{ $condition == '風邪ひいたぁ' ? 'selected' : '' }}>辛い肩こり</option>
-                                    <option value="冷え性" {{ $condition == '冷え性' ? 'selected' : '' }}>冷え性</option>
-                                    <option value="食欲不振" {{ $condition == '食欲不振' ? 'selected' : '' }}>食欲不振</option>
-                                    <option value="ダイエットに" {{ $condition == 'ダイエットに' ? 'selected' : '' }}>ダイエットに</option>
+                                    <option value="1風邪ひいたぁ">風邪ひいたぁ</option>
+                                    <option value="美容に">美容に</option>
+                                    <option value="3">最近イライラ</option>
+                                    <option value="4">胃腸の調子</option>
+                                    <option value="5">むくみが気になる</option>
+                                    <option value="6">疲れ気味</option>
+                                    <option value="7">辛い肩こり</option>
+                                    <option value="8">冷え性</option>
+                                    <option value="9">食欲不振</option>
+                                    <option value="10">ダイエットに</option>
                                 </select>
                             </div>
                             <button type="submit"
